@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サタデープログラム 公式サイト | 土曜市民公開講座</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==========================================
+       1. VARIABLES & RESET
+       ========================================== */
+    :root {
+      --primary-blue: #0066FF;
+      --primary-light: #00A3FF;
+      --primary-gradient: linear-gradient(135deg, #00A3FF 0%, #0052D4 100%);
+      --accent-cyan: #00E5FF;
+      --bg-white: #FFFFFF;
+      --bg-light-blue: #F0F7FF;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 102, 255, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 102, 255, 0.12);
+      --shadow-lg: 0 20px 35px -10px rgba(0, 102, 255, 0.18);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: var(--bg-white);
+      color: var(--text-dark);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================
+       2. HEADER & NAVIGATION
+       ========================================== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 163, 255, 0.12);
+      transition: var(--transition);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      z-index: 1002;
+    }
+
+    .logo-badge {
+      background: var(--primary-gradient);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+      -webkit-text-fill-color: #fff;
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      z-index: 1002;
+      padding: 8px;
+    }
+
+    .nav-list {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      position: relative;
+      padding: 8px 0;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--primary-gradient);
+      transition: var(--transition);
+      border-radius: 2px;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-blue);
+    }
+
+    .nav-btn {
+      background: var(--primary-gradient);
+      color: #fff !important;
+      padding: 10px 24px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+      font-weight: 700;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 102, 255, 0.4);
+    }
+
+    /* Overlay for mobile menu */
+    .menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .menu-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* ==========================================
+       3. HERO SECTION
+       ========================================== */
+    .hero {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      background: linear-gradient(180deg, #EBF5FF 0%, #FFFFFF 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-shape {
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,163,255,0.15) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      animation: pulse 8s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.1) translate(-20px, 20px); }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 102, 255, 0.08);
+      color: var(--primary-blue);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title span {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .status-card {
+      background: #FFFFFF;
+      border-left: 5px solid var(--primary-blue);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 24px;
+    }
+
+    .status-card h3 {
+      color: var(--primary-blue);
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-cta-btns {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .cta-btn-main {
+      padding: 14px 32px;
+      background: var(--primary-gradient);
+      color: #fff;
+      border-radius: 30px;
+      font-weight: 800;
+      box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .cta-btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 102, 255, 0.4);
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transform: perspective(1000px) rotateY(-3deg);
+      transition: var(--transition);
+    }
+
+    .hero-image-wrapper:hover {
+      transform: perspective(1000px) rotateY(0deg) scale(1.02);
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+    }
+
+    .sub-links-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .sub-link-item {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sub-link-item a {
+      color: var(--primary-blue);
+      text-decoration: underline;
+    }
+
+    /* ==========================================
+       4. SECTION COMMON STYLES
+       ========================================== */
+    .section {
+      padding: 90px 0;
+    }
+
+    .bg-light {
+      background-color: var(--bg-light-blue);
+    }
+
+    .section-title-wrapper {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-subtitle {
+      color: var(--primary-blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 4px;
+      background: var(--primary-gradient);
+      border-radius: 2px;
+    }
+
+    /* ==========================================
+       5. OUTLINE (概要) SECTION
+       ========================================== */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .info-card {
+      background: var(--bg-white);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 163, 255, 0.08);
+      transition: var(--transition);
+      position: relative;
+      top: 0;
+    }
+
+    .info-card:hover {
+      top: -8px;
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(0, 163, 255, 0.3);
+    }
+
+    .info-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
+      background: rgba(0, 102, 255, 0.08);
+      color: var(--primary-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .info-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    /* ==========================================
+       6. COURSES (講座一覧) SECTION
+       ========================================== */
+    .tab-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 10px 24px;
+      border-radius: 30px;
+      border: 2px solid rgba(0, 102, 255, 0.15);
+      background: #fff;
+      color: var(--text-dark);
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--primary-gradient);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 15px rgba(0, 102, 255, 0.25);
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .course-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 163, 255, 0.1);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .course-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .course-img-wrapper {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .course-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .course-card:hover .course-img {
+      transform: scale(1.08);
+    }
+
+    .course-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    .course-category {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      background: var(--primary-gradient);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    .course-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .course-time {
+      font-size: 0.85rem;
+      color: var(--primary-blue);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .course-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .course-lecturer {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .course-desc {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .course-footer {
+      border-top: 1px solid #F1F5F9;
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .course-fee {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+    }
+
+    .course-apply-btn {
+      padding: 6px 16px;
+      background: var(--primary-gradient);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 3px 10px rgba(0, 102, 255, 0.2);
+    }
+
+    .course-apply-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 102, 255, 0.3);
+    }
+
+    /* ==========================================
+       7. APPLICATION (受講申し込み) SECTION
+       ========================================== */
+    .apply-card {
+      max-width: 850px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 24px;
+      padding: 44px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(0, 163, 255, 0.15);
+      position: relative;
+    }
+
+    .apply-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: var(--primary-gradient);
+      border-radius: 24px 24px 0 0;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .form-label .required {
+      background: #FF4757;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 8px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: var(--transition);
+      background: #F8FAFC;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(0, 163, 255, 0.15);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      background: var(--primary-gradient);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3);
+      transition: var(--transition);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 102, 255, 0.4);
+    }
+
+    .apply-closed-notice {
+      text-align: center;
+      padding: 30px;
+      background: #F1F5F9;
+      border-radius: 16px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================
+       8. ABOUT (サタプロとは？) SECTION
+       ========================================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-images {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .about-img {
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+      object-fit: cover;
+      height: 220px;
+      width: 100%;
+      transition: var(--transition);
+    }
+
+    .about-img:hover {
+      transform: scale(1.05);
+    }
+
+    .about-img-tall {
+      grid-row: span 2;
+      height: 100%;
+    }
+
+    .feature-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #E0F2FE;
+      color: #0369A1;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    /* ==========================================
+       9. ACCESS (交通アクセス) SECTION
+       ========================================== */
+    .access-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .access-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(0, 163, 255, 0.1);
+    }
+
+    .access-list {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .access-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .access-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 102, 255, 0.08);
+      color: var(--primary-blue);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .map-box {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      height: 100%;
+      min-height: 350px;
+      background: #e2e8f0;
+      position: relative;
+    }
+
+    .map-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ==========================================
+       10. FAQ SECTION
+       ========================================== */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(0, 163, 255, 0.1);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 20px 24px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .faq-question i {
+      color: var(--primary-blue);
+      transition: var(--transition);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      background: var(--bg-light-blue);
+      color: #334155;
+      padding: 0 24px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      padding: 16px 24px 20px 24px;
+      border-top: 1px solid rgba(0, 163, 255, 0.08);
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    /* ==========================================
+       11. FOOTER
+       ========================================== */
+    .footer {
+      background: #0A192F;
+      color: #94A3B8;
+      padding: 60px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .footer-heading {
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.85rem;
+    }
+
+    /* ANIMATION */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================
+       12. RESPONSIVE (スマホ・タブレット対応)
+       ========================================== */
+    @media (max-width: 992px) {
+      .hero-grid, .about-grid, .access-grid, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-images {
+        margin-bottom: 24px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .header-container {
+        height: 70px;
+      }
+
+      /* ハンバーガーメニュー有効化 */
+      .hamburger {
+        display: block;
+      }
+
+      .nav-list {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background: #FFFFFF;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 90px 24px 40px;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+        transition: var(--transition);
+        z-index: 1001;
+        gap: 16px;
+      }
+
+      .nav-list.active {
+        right: 0;
+      }
+
+      .nav-list li {
+        width: 100%;
+      }
+
+      .nav-link {
+        display: block;
+        font-size: 1.05rem;
+        padding: 10px 0;
+        border-bottom: 1px solid #F1F5F9;
+      }
+
+      .nav-btn {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      /* Hero Section */
+      .hero {
+        padding-top: 100px;
+        padding-bottom: 50px;
+      }
+
+      .hero-title {
+        font-size: 1.8rem;
+        line-height: 1.35;
+      }
+
+      .hero-tag {
+        font-size: 0.8rem;
+      }
+
+      .hero-image-wrapper {
+        transform: none;
+      }
+
+      .hero-image-wrapper:hover {
+        transform: none;
+      }
+
+      .hero-image {
+        height: 260px;
+      }
+
+      .hero-cta-btns {
+        flex-direction: column;
+      }
+
+      .cta-btn-main {
+        width: 100%;
+      }
+
+      /* Sections & Cards */
+      .section {
+        padding: 50px 0;
+      }
+
+      .section-title-wrapper {
+        margin-bottom: 36px;
+      }
+
+      .section-title {
+        font-size: 1.6rem;
+      }
+
+      .info-card, .apply-card, .access-card {
+        padding: 24px 18px;
+        border-radius: 16px;
+      }
+
+      .courses-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .tab-container {
+        gap: 8px;
+      }
+
+      .tab-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+
+      .map-box {
+        min-height: 240px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .about-images {
+        grid-template-columns: 1fr;
+      }
+
+      .about-img-tall {
+        grid-row: auto;
+        height: 200px;
+      }
+
+      .about-img {
+        height: 180px;
+      }
+
+      .faq-question {
+        padding: 16px;
+        font-size: 0.95rem;
+      }
+
+      .faq-answer {
+        padding: 0 16px;
+        font-size: 0.88rem;
+      }
+
+      .faq-item.active .faq-answer {
+        padding: 12px 16px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- モバイルメニュー用オーバーレイ -->
+  <div class="menu-overlay" id="menu-overlay" onclick="toggleMobileMenu()"></div>
+
+  <!-- 1. ヘッダー -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="#" class="logo">
+        Satprogram <span class="logo-badge" id="header-badge">50th</span>
+      </a>
+
+      <!-- ハンバーガーボタン -->
+      <button class="hamburger" id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="メニューを開く">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav>
+        <ul class="nav-list" id="nav-list">
+          <li><a href="#courses" class="nav-link" onclick="closeMobileMenu()">講座一覧</a></li>
+          <li><a href="#about" class="nav-link" onclick="closeMobileMenu()">サタプロとは</a></li>
+          <li><a href="#access" class="nav-link" onclick="closeMobileMenu()">交通アクセス</a></li>
+          <li><a href="#faq" class="nav-link" onclick="closeMobileMenu()">FAQ</a></li>
+          <li><a href="#contact" class="nav-link" onclick="closeMobileMenu()">お問い合わせ</a></li>
+          <li><a href="#apply" class="nav-link nav-btn" onclick="closeMobileMenu()"><i class="fa-solid fa-pen-to-square"></i> 受講申込</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 2. ヒーローセクション -->
+  <section class="hero">
+    <div class="hero-shape"></div>
+    <div class="container hero-grid">
+      <div class="fade-in">
+        <div class="hero-tag">
+          <i class="fa-solid fa-sparkles"></i> 愛知県・名古屋市後援 土曜市民公開講座
+        </div>
+        <h1 class="hero-title">
+          <span id="hero-title-1">未知の世界へ飛び込み、</span><br>
+          <span id="hero-title-2">非日常をご体感ください。</span>
+        </h1>
+        
+        <!-- お知らせステータスカード -->
+        <div class="status-card">
+          <h3><i class="fa-solid fa-circle-info" id="status-icon"></i> <span id="status-title">第50回 サタデープログラム 開催決定！</span></h3>
+          <p id="status-desc">
+            次回開催の日程・講座ラインナップ・お申し込み方法につきましては、決定次第本サイトにて順次お知らせいたします。
+          </p>
+        </div>
+
+        <div class="hero-cta-btns">
+          <a href="#apply" class="cta-btn-main" id="hero-cta-btn"><i class="fa-solid fa-paper-plane"></i> 受講申込について</a>
+        </div>
+
+        <div class="sub-links-bar">
+          <span class="sub-link-item"><i class="fa-solid fa-circle-info"></i> <a href="#contact">落とし物のお問い合わせ</a></span>
+          <span class="sub-link-item"><i class="fa-solid fa-newspaper"></i> <a href="#contact">報道関係者の方へ</a></span>
+        </div>
+      </div>
+
+      <div class="hero-image-wrapper fade-in">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80" alt="サタデープログラム風景" class="hero-image">
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 概要 -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-title-wrapper fade-in">
+        <p class="section-subtitle">Outline</p>
+        <h2 class="section-title">第<span class="dynamic-edition">50</span>回 サタデープログラム概要</h2>
+      </div>
+
+      <div class="info-grid fade-in">
+        <div class="info-card">
+          <div class="info-icon"><i class="fa-regular fa-calendar-days"></i></div>
+          <h3>開催日時</h3>
+          <p><strong id="outline-date">日時調整中（決定次第掲載）</strong></p>
+          <ul style="list-style: none; margin-top: 8px; color: var(--text-muted); font-size: 0.9rem;">
+            <li>・第1部 09:00 - 10:30</li>
+            <li>・第2部 11:30 - 13:00</li>
+            <li>・第3部 14:00 - 15:30</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <h3>会場・アクセス</h3>
+          <p><strong id="outline-venue">東海高校・中学校</strong></p>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">
+            〒461-0003 名古屋市東区筒井1-2-35<br>
+            TEL 070-1652-5111 (直通)<br>
+            FAX 052-936-5195
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon"><i class="fa-solid fa-ticket"></i></div>
+          <h3>入場料・参加費</h3>
+          <p style="font-size: 1.2rem; color: var(--primary-blue); font-weight: 700;" id="outline-fee">無料</p>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">(一部材料費等がかかる講座を除く)</p>
+          <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #eee; font-size: 0.85rem;">
+            <strong>後援：</strong><span id="outline-sponsors">愛知県 / 名古屋市</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 講座一覧 SECTION -->
+  <section id="courses" class="section">
+    <div class="container">
+      <div class="section-title-wrapper fade-in">
+        <p class="section-subtitle">Courses</p>
+        <h2 class="section-title">開講講座一覧</h2>
+      </div>
+
+      <!-- フィルタータブ -->
+      <div class="tab-container fade-in">
+        <button class="tab-btn active" onclick="filterCourses('all')">すべて表示</button>
+        <button class="tab-btn" onclick="filterCourses('part1')">第1部</button>
+        <button class="tab-btn" onclick="filterCourses('part2')">第2部</button>
+        <button class="tab-btn" onclick="filterCourses('part3')">第3部</button>
+      </div>
+
+      <!-- 講座カードグリッド -->
+      <div class="courses-grid fade-in">
+
+        <!-- 講座 1 -->
+        <div class="course-card" data-part="part1">
+          <div class="course-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="講座画像" class="course-img">
+            <span class="course-badge">第1部 09:00-10:30</span>
+            <span class="course-category">人文・社会</span>
+          </div>
+          <div class="course-body">
+            <div class="course-time"><i class="fa-regular fa-clock"></i> 09:00 - 10:30</div>
+            <h3 class="course-title">AI時代を生き抜く「思考の軸」のつくり方</h3>
+            <div class="course-lecturer"><i class="fa-regular fa-user"></i> 著名ジャーナリスト・大学教授</div>
+            <p class="course-desc">テクノロジーの進化が著しい現代において、自分自身の視点と批判的思考力を育むための対話型特別セッションです。</p>
+            <div class="course-footer">
+              <span class="course-fee">受講料：無料</span>
+              <button class="course-apply-btn" onclick="applyForCourse('AI時代を生き抜く「思考の軸」のつくり方')">詳細を見る</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 講座 2 -->
+        <div class="course-card" data-part="part2">
+          <div class="course-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="講座画像" class="course-img">
+            <span class="course-badge">第2部 11:30-13:00</span>
+            <span class="course-category">科学・IT</span>
+          </div>
+          <div class="course-body">
+            <div class="course-time"><i class="fa-regular fa-clock"></i> 11:30 - 13:00</div>
+            <h3 class="course-title">宇宙探査の最前線！はやぶさ2が拓いた未来</h3>
+            <div class="course-lecturer"><i class="fa-regular fa-user"></i> JAXA 宇宙科学研究所 研究員</div>
+            <p class="course-desc">小惑星からのサンプル持ち帰りに成功したプロジェクトの裏側と、これからの宇宙開発の夢について語ります。</p>
+            <div class="course-footer">
+              <span class="course-fee">受講料：無料</span>
+              <button class="course-apply-btn" onclick="applyForCourse('宇宙探査の最前線！はやぶさ2が拓いた未来')">詳細を見る</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 講座 3 -->
+        <div class="course-card" data-part="part3">
+          <div class="course-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80" alt="講座画像" class="course-img">
+            <span class="course-badge">第3部 14:00-15:30</span>
+            <span class="course-category">芸術・音楽</span>
+          </div>
+          <div class="course-body">
+            <div class="course-time"><i class="fa-regular fa-clock"></i> 14:00 - 15:30</div>
+            <h3 class="course-title">クラシック音楽の深層〜聴き方が変わる体験型レクチャー〜</h3>
+            <div class="course-lecturer"><i class="fa-regular fa-user"></i> コンサートピアニスト</div>
+            <p class="course-desc">名曲に隠された構造や作曲家の情熱をピアノの実演を交えて分かりやすく解説。音楽の本当の楽しさに触れます。</p>
+            <div class="course-footer">
+              <span class="course-fee">受講料：無料</span>
+              <button class="course-apply-btn" onclick="applyForCourse('クラシック音楽の深層〜聴き方が変わる体験型レクチャー〜')">詳細を見る</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 受講申し込み SECTION -->
+  <section id="apply" class="section bg-light">
+    <div class="container">
+      <div class="section-title-wrapper fade-in">
+        <p class="section-subtitle">Application</p>
+        <h2 class="section-title">講座受講申し込み</h2>
+      </div>
+
+      <div class="apply-card fade-in">
+        <!-- 準備中メッセージ（JSで自動切り替え） -->
+        <div id="apply-closed-box" class="apply-closed-notice" style="display: none;">
+          <i class="fa-solid fa-clock-rotate-left" style="font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 12px;"></i>
+          <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 8px;">現在はお申し込み期間外です</h3>
+          <p>第<span class="dynamic-edition">50</span>回の受講申し込み受付開始につきましては、日程が決まり次第本サイトおよび公式案内にてご案内いたします。今しばらくお待ちください。</p>
+        </div>
+
+        <!-- 申し込みフォーム（受付中のみ表示） -->
+        <form id="apply-form" onsubmit="handleApplySubmit(event)">
+          <div class="form-group">
+            <label class="form-label">受講希望講座 <span class="required">必須</span></label>
+            <select class="form-select" id="apply-course-select" required>
+              <option value="">講座を選択してください</option>
+              <option value="AI時代を生き抜く「思考の軸」のつくり方">【第1部】AI時代を生き抜く「思考の軸」のつくり方</option>
+              <option value="宇宙探査の最前線！はやぶさ2が拓いた未来">【第2部】宇宙探査の最前線！はやぶさ2が拓いた未来</option>
+              <option value="クラシック音楽の深層〜聴き方が変わる体験型レクチャー〜">【第3部】クラシック音楽の深層〜聴き方が変わる体験型レクチャー〜</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">お名前（氏名） <span class="required">必須</span></label>
+              <input type="text" class="form-input" placeholder="東海 太郎" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">フリガナ <span class="required">必須</span></label>
+              <input type="text" class="form-input" placeholder="トウカイ タロウ" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">メールアドレス <span class="required">必須</span></label>
+              <input type="email" class="form-input" placeholder="example@satprogram.net" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">電話番号 <span class="required">必須</span></label>
+              <input type="tel" class="form-input" placeholder="090-0000-0000" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">ご区分 <span class="required">必須</span></label>
+              <select class="form-select" required>
+                <option value="">選択してください</option>
+                <option value="general">一般（社会人・大学生）</option>
+                <option value="student">小・中・高校生</option>
+                <option value="parent">保護者</option>
+                <option value="other">その他</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">参加人数 <span class="required">必須</span></label>
+              <select class="form-select" required>
+                <option value="1">1名（本人のみ）</option>
+                <option value="2">2名</option>
+                <option value="3">3名</option>
+                <option value="4">4名以上</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">ご質問・事前リクエスト（任意）</label>
+            <textarea class="form-textarea" rows="3" placeholder="講師の方への質問などがございましたらご記入ください"></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn"><i class="fa-solid fa-check-circle"></i> この内容で受講を申し込む</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. サタデープログラムって？ -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-images fade-in">
+          <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="講座の様子" class="about-img about-img-tall">
+          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" alt="生徒実行委員の打ち合わせ" class="about-img">
+          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="学びの場" class="about-img">
+        </div>
+
+        <div class="about-content fade-in">
+          <span class="feature-badge">About Us</span>
+          <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 20px;">「サタデープログラム」って？</h2>
+          <p>
+            サタデープログラムとは、愛知県・名古屋市の後援の下、私学助成金によって運営されている土曜市民公開講座です。2002年に第1回を開催して以来、のべ49回開催してまいりました。
+          </p>
+          <p>
+            サタデープログラムでは、講座の企画・交渉、当日の運営、ホームページのデザイン・制作、SNSの運営など、本行事の企画・運営は基本的に生徒実行委員によって行っています。
+          </p>
+          <p>
+            当日は様々なジャンルの著名人の方を講師としてお招きするほか、お子様向けの講座や趣味に関する講座なども開講しております。材料費等のかかる講座を除いては、どなた様でも無料でご受講いただけます。
+          </p>
+          <p style="font-weight: 700; color: var(--primary-blue); margin-top: 8px;">
+            生徒実行委員一同、皆様のご来校を心よりお待ち致しております。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. 交通アクセス -->
+  <section id="access" class="section bg-light">
+    <div class="container">
+      <div class="section-title-wrapper fade-in">
+        <p class="section-subtitle">Access</p>
+        <h2 class="section-title">交通アクセス</h2>
+      </div>
+
+      <div class="access-grid fade-in">
+        <div class="access-card">
+          <h3 style="font-size: 1.3rem; margin-bottom: 8px;">東海高校・中学校</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">〒461-0003 名古屋市東区筒井1-2-35</p>
+
+          <ul class="access-list">
+            <li class="access-item">
+              <div class="access-icon"><i class="fa-solid fa-train-subway"></i></div>
+              <div>
+                <strong>地下鉄桜通線「車道駅」</strong>
+                <p style="font-size:0.9rem; color:var(--text-muted);">1番出口より徒歩 約10分</p>
+              </div>
+            </li>
+            <li class="access-item">
+              <div class="access-icon"><i class="fa-solid fa-train"></i></div>
+              <div>
+                <strong>JR・地下鉄東山線「千種駅」</strong>
+                <p style="font-size:0.9rem; color:var(--text-muted);">1番出口より徒歩 約15分</p>
+              </div>
+            </li>
+            <li class="access-item">
+              <div class="access-icon"><i class="fa-solid fa-train-tram"></i></div>
+              <div>
+                <strong>名鉄瀬戸線「森下駅」</strong>
+                <p style="font-size:0.9rem; color:var(--text-muted);">徒歩 約10分</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="map-box">
+          <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80" alt="アクセスマップイメージ" class="map-placeholder">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FAQ -->
+  <section id="faq" class="section">
+    <div class="container">
+      <div class="section-title-wrapper fade-in">
+        <p class="section-subtitle">FAQ</p>
+        <h2 class="section-title">よくある質問</h2>
+      </div>
+
+      <div class="faq-container fade-in">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>受講に費用はかかりますか？</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            原則としてどなた様でも無料でご参加いただけます。ただし、一部の工作や調理など実費材料費が必要な講座に限り費用が発生する場合がございます。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>当日申し込みなしでの受講は可能ですか？</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            席に空きがある場合は当日の飛び込み受講も可能ですが、人気の講座は事前に立ち見や満席になる可能性があるため、Webからの事前申し込みを推奨しております。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>落とし物をしてしまった場合はどうすればいいですか？</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            サタプロ直通電話（070-1652-5111）または下記お問い合わせフォームよりご連絡ください。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. お問い合わせ -->
+  <section id="contact" class="section bg-light">
+    <div class="container">
+      <div class="section-title-wrapper fade-in">
+        <p class="section-subtitle">Contact</p>
+        <h2 class="section-title">お問い合わせ</h2>
+      </div>
+
+      <div class="apply-card fade-in" style="max-width: 800px;">
+        <form onsubmit="handleContactSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">お問い合わせ種別 <span class="required">必須</span></label>
+            <select class="form-select" required>
+              <option value="">選択してください</option>
+              <option value="general">一般・ご来場に関するお問い合わせ</option>
+              <option value="lost">落とし物についてのお問い合わせ</option>
+              <option value="media">報道・取材関係者の方</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">お名前 <span class="required">必須</span></label>
+            <input type="text" class="form-input" placeholder="東海 太郎" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">メールアドレス <span class="required">必須</span></label>
+            <input type="email" class="form-input" placeholder="example@satprogram.net" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">お問い合わせ内容 <span class="required">必須</span></label>
+            <textarea class="form-textarea" rows="4" placeholder="ご質問や落とし物の詳細をご記入ください" required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn"><i class="fa-regular fa-paper-plane"></i> お問い合わせを送信する</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. フッター -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">サタデープログラム</div>
+          <p style="font-size: 0.9rem; line-height: 1.6;">
+            東海高校・中学校 生徒実行委員会が主導する土曜市民公開講座。<br>
+            地域社会にひらかれた「知のエンターテインメント」を提供します。
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">メニュー</h4>
+          <ul class="footer-links">
+            <li><a href="#courses">講座一覧</a></li>
+            <li><a href="#apply">受講申込</a></li>
+            <li><a href="#about">サタプロとは</a></li>
+            <li><a href="#access">交通アクセス</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">インフォメーション</h4>
+          <ul class="footer-links">
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">お問い合わせ</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="copyright">
+        &copy; 東海高校・中学 サタデープログラム生徒実行委員会 All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- 11. JavaScript -->
+  <script>
+    /* ====================================================================
+       ⚙️ サイト情報・開催情報の変更（★ここの文字を書き換えてください★）
+       ==================================================================== */
+    const SITE_CONFIG = {
+      edition: "50",
+      isApplyingOpen: false,
+      heroTitleLine1: "未知の世界へ飛び込み、",
+      heroTitleLine2: "非日常をご体感ください。",
+      statusTitle: "第50回 サタデープログラム 開催決定！",
+      statusDesc: "次回開催の日程・講座ラインナップ・お申し込み方法につきましては、決定次第本サイトにて順次お知らせいたします。",
+      eventDate: "日時調整中（決定次第発表）",
+      venueName: "東海高校・中学校",
+      admissionFee: "無料（一部実費講座を除く）",
+      sponsors: "愛知県 / 名古屋市"
+    };
+
+    /* ====================================================================
+       自動反映スクリプト & モバイル機能
+       ==================================================================== */
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById('header-badge').innerText = SITE_CONFIG.edition + "th";
+      document.querySelectorAll('.dynamic-edition').forEach(el => el.innerText = SITE_CONFIG.edition);
+
+      document.getElementById('hero-title-1').innerText = SITE_CONFIG.heroTitleLine1;
+      document.getElementById('hero-title-2').innerText = SITE_CONFIG.heroTitleLine2;
+
+      document.getElementById('status-title').innerText = SITE_CONFIG.statusTitle;
+      document.getElementById('status-desc').innerText = SITE_CONFIG.statusDesc;
+
+      document.getElementById('outline-date').innerText = SITE_CONFIG.eventDate;
+      document.getElementById('outline-venue').innerText = SITE_CONFIG.venueName;
+      document.getElementById('outline-fee').innerText = SITE_CONFIG.admissionFee;
+      document.getElementById('outline-sponsors').innerText = SITE_CONFIG.sponsors;
+
+      const applyForm = document.getElementById('apply-form');
+      const applyClosedBox = document.getElementById('apply-closed-box');
+      const heroCtaBtn = document.getElementById('hero-cta-btn');
+      const statusIcon = document.getElementById('status-icon');
+
+      if (SITE_CONFIG.isApplyingOpen) {
+        applyForm.style.display = 'block';
+        applyClosedBox.style.display = 'none';
+        heroCtaBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> 今すぐ受講を申し込む';
+        statusIcon.className = 'fa-solid fa-circle-check';
+      } else {
+        applyForm.style.display = 'none';
+        applyClosedBox.style.display = 'block';
+        heroCtaBtn.innerHTML = '<i class="fa-solid fa-circle-info"></i> 次回開催について';
+        statusIcon.className = 'fa-solid fa-circle-info';
+      }
+
+      // スクロールアニメーション
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+    });
+
+    /* モバイルメニュー（ハンバーガー）の開閉 */
+    function toggleMobileMenu() {
+      const navList = document.getElementById('nav-list');
+      const hamburgerIcon = document.querySelector('#hamburger-btn i');
+      const overlay = document.getElementById('menu-overlay');
+
+      navList.classList.toggle('active');
+      overlay.classList.toggle('active');
+
+      if (navList.classList.contains('active')) {
+        hamburgerIcon.className = 'fa-solid fa-xmark';
+      } else {
+        hamburgerIcon.className = 'fa-solid fa-bars';
+      }
+    }
+
+    function closeMobileMenu() {
+      const navList = document.getElementById('nav-list');
+      if (navList.classList.contains('active')) {
+        toggleMobileMenu();
+      }
+    }
+
+    // 講座フィルター
+    function filterCourses(category) {
+      const buttons = document.querySelectorAll('.tab-btn');
+      const cards = document.querySelectorAll('.course-card');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.part === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function applyForCourse(courseTitle) {
+      const applySection = document.getElementById('apply');
+      if (applySection) {
+        applySection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function toggleFaq(element) {
+      const item = element.parentElement;
+      item.classList.toggle('active');
+    }
+
+    function handleApplySubmit(event) {
+      event.preventDefault();
+      alert('受講申し込みが完了しました！');
+    }
+
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      alert('お問い合わせを受け付けました。ご入力ありがとうございます！');
+    }
+  </script>
+</body>
+</html>
